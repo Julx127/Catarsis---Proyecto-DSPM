@@ -26,7 +26,7 @@ export default function RegisterScreen() {
       return;
     }
 
-    fetch('http://10.238.140.45:5000/usuarios', {
+    fetch('http://10.0.4.51:5000/usuarios', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

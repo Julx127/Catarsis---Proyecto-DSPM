@@ -18,7 +18,7 @@ export default function LoginScreen() {
       return;
     }
 
-    fetch('http://10.238.140.45:5000/usuarios/login', {
+    fetch('http://10.0.4.51:5000/usuarios/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

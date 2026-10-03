@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import {Pressable, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 import { posteos } from '@/interfaces/interfaces';
 import { etiquetas } from '@/interfaces/interfaces';
@@ -12,7 +12,7 @@ export default function CommunityScreen() {
 
   const [posteos, setPosteos] = useState<posteos[]>([]);
   useEffect(() => {
-    fetch('http://10.238.140.45:5000/posteos')
+    fetch('http://10.0.4.51:5000/posteos')
       .then((response) => response.json())
       .then((data) => setPosteos(data))
       .catch((error) =>
@@ -23,7 +23,7 @@ export default function CommunityScreen() {
 
   const [etiquetas, setEtiquetas] = useState<etiquetas[]>([]);
   useEffect(() => {
-    fetch('http://10.238.140.45:5000/etiquetas')
+    fetch('http://10.0.4.51:5000/etiquetas')
       .then((response) => response.json())
       .then((data) => setEtiquetas(data))
       .catch((error) =>
@@ -34,7 +34,7 @@ export default function CommunityScreen() {
 
   const [posteos_etiquetas, setPosteos_etiquetas] =useState<posteos_etiquetas[]>([]);
   useEffect(() => {
-    fetch('http://10.238.140.45:5000/posteos_etiquetas')
+    fetch('http://10.0.4.51:5000/posteos_etiquetas')
       .then((response) => response.json())
       .then((data) => setPosteos_etiquetas(data))
       .catch((error) =>
@@ -45,7 +45,7 @@ export default function CommunityScreen() {
 
   const [usuarios, setUsuarios] = useState<usuarios[]>([]);
   useEffect(() => {
-    fetch('http://10.238.140.45:5000/usuarios')
+    fetch('http://10.0.4.51:5000/usuarios')
       .then((response) => response.json())
       .then((data) => setUsuarios(data))
       .catch((error) =>
@@ -78,7 +78,24 @@ export default function CommunityScreen() {
     return etiquetasDelPosteo;
   };
 
+  // Funcion para hacer funcional la busqueda por etiquetas
+  const [query, setQuery] = useState('');
+  const filteredPosteos = useMemo(() => {
+  const textoBuscado = query
+    .trim()
+    .toLowerCase()
+    .replace(/^#/, '');
+  if (textoBuscado === '') {
+    return posteos;
+  }
+  return posteos.filter((posteo) => {
+    const etiquetasDelPosteo = obtenerEtiquetas(posteo.idposteos);
+    return etiquetasDelPosteo.some((etiqueta) =>
+      etiqueta.nombre.toLowerCase().includes(textoBuscado)
+    );
+  });
 
+}, [query, posteos, etiquetas, posteos_etiquetas]);
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
@@ -95,8 +112,9 @@ export default function CommunityScreen() {
           <Text style={styles.subtitle}>
             Compartí tus impresiones y descubrí nuevas recomendaciones.
           </Text>
-
           <TextInput
+            value={query}
+            onChangeText={setQuery}
             placeholder="Buscar por palabra o hashtag..."
             placeholderTextColor="#b8b8b8"
             style={styles.search}
@@ -108,7 +126,7 @@ export default function CommunityScreen() {
             </Text>
           </Pressable>
 
-          {posteos.map((posteo) => {
+          {filteredPosteos.map((posteo) => {
             const etiquetasDelPosteo =
               obtenerEtiquetas(posteo.idposteos);
 

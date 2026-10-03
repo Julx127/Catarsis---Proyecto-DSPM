@@ -36,11 +36,9 @@ export default function ProfileScreen() {
     <View style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.content}>
-          
           <Pressable onPress={handleLogout} style={styles.backButton}>
             <Text style={styles.backText}>CERRAR SESION</Text>
           </Pressable>
-
           <View style={styles.profileHeader}>
             <Image source={require('../../assets/images/Imagenes Catarsis/Perfil.png')} contentFit="contain" style={styles.avatar} />
             <View style={styles.headerCopy}><Text style={styles.kicker}>MI CUENTA</Text><Text style={styles.title}>Perfil</Text><Text style={styles.nickname}>{username}</Text></View>

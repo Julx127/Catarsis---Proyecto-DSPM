@@ -11,9 +11,9 @@ export default function WorksScreen() {
 
   const [query, setQuery] = useState('');
   const [obras, setObras] = useState<obras[]>([]);
-// Obtener datos de obras
+// Obtener datos de obras y busqueda de obras
   useEffect(() => {
-    fetch('http://10.238.140.45:5000/obras')
+    fetch('http://10.0.4.51:5000/obras')
       .then((response) => response.json())
       .then((data) => setObras(data))
       .catch((error) => console.error('Error al obtener datos:', error));
