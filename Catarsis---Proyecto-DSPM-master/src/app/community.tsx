@@ -7,12 +7,13 @@ import { posteos } from '@/interfaces/interfaces';
 import { etiquetas } from '@/interfaces/interfaces';
 import { posteos_etiquetas } from '@/interfaces/interfaces';
 import { usuarios } from '@/interfaces/interfaces';
+import { API_URL } from '@/constants/config';
 
 export default function CommunityScreen() {
 
   const [posteos, setPosteos] = useState<posteos[]>([]);
   useEffect(() => {
-    fetch('http://10.0.4.51:5000/posteos')
+    fetch(`${API_URL}/posteos`)
       .then((response) => response.json())
       .then((data) => setPosteos(data))
       .catch((error) =>
@@ -23,7 +24,7 @@ export default function CommunityScreen() {
 
   const [etiquetas, setEtiquetas] = useState<etiquetas[]>([]);
   useEffect(() => {
-    fetch('http://10.0.4.51:5000/etiquetas')
+    fetch(`${API_URL}/etiquetas`)
       .then((response) => response.json())
       .then((data) => setEtiquetas(data))
       .catch((error) =>
@@ -34,7 +35,7 @@ export default function CommunityScreen() {
 
   const [posteos_etiquetas, setPosteos_etiquetas] =useState<posteos_etiquetas[]>([]);
   useEffect(() => {
-    fetch('http://10.0.4.51:5000/posteos_etiquetas')
+    fetch(`${API_URL}/posteos_etiquetas`)
       .then((response) => response.json())
       .then((data) => setPosteos_etiquetas(data))
       .catch((error) =>
@@ -45,7 +46,7 @@ export default function CommunityScreen() {
 
   const [usuarios, setUsuarios] = useState<usuarios[]>([]);
   useEffect(() => {
-    fetch('http://10.0.4.51:5000/usuarios')
+    fetch(`${API_URL}/usuarios`)
       .then((response) => response.json())
       .then((data) => setUsuarios(data))
       .catch((error) =>

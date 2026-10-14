@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
 
 import { usuarios } from '@/interfaces/interfaces';
+import { API_URL } from '@/constants/config';
 
 export default function RegisterScreen() {
 
@@ -26,7 +27,7 @@ export default function RegisterScreen() {
       return;
     }
 
-    fetch('http://10.0.4.51:5000/usuarios', {
+    fetch(`${API_URL}/usuarios`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

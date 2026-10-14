@@ -5,7 +5,7 @@ import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { obras } from '@/interfaces/interfaces';
-
+import { API_URL } from '@/constants/config';
 
 export default function WorksScreen() {
 
@@ -13,7 +13,7 @@ export default function WorksScreen() {
   const [obras, setObras] = useState<obras[]>([]);
 // Obtener datos de obras y busqueda de obras
   useEffect(() => {
-    fetch('http://10.0.4.51:5000/obras')
+    fetch(`${API_URL}/obras`)
       .then((response) => response.json())
       .then((data) => setObras(data))
       .catch((error) => console.error('Error al obtener datos:', error));
@@ -57,7 +57,14 @@ export default function WorksScreen() {
               <Pressable
                 key={obra.idobras}
                 accessibilityRole="button"
-                onPress={() => router.push({ pathname: '/work-detail', params: { title: obra.titulo } })}
+                onPress={() =>
+                  router.push({
+                    pathname: '/work-detail',
+                    params: {
+                      id: String(obra.idobras)
+                    }
+                  })
+                }
                 style={({ pressed }) => [styles.card, pressed && styles.pressed]}>
                 <Image source={{ uri: obra.portada }} contentFit="contain" style={styles.poster} />
                 <Text numberOfLines={6} style={styles.cardTitle}>

@@ -9,4 +9,140 @@ router.get('/', (req, res) => {
   });
 });
 
+// obtener las interacciones del usuario logeado con la obra seleccionada, segun sus ids
+router.get('/usuario/:usuarioId/obra/:obraId', (req, res) => {
+  const usuarioId = Number(req.params.usuarioId);
+  const obraId = Number(req.params.obraId);
+
+  if (
+    !Number.isInteger(usuarioId) || usuarioId <= 0 ||
+    !Number.isInteger(obraId) || obraId <= 0
+  ) {
+    return res.status(400).json({
+      mensaje: 'IDs inválidos'
+    });
+  }
+
+  const sql = `
+    SELECT vista, \`like\`, favorita
+    FROM interacciones_obras
+    WHERE usuarios_idusuarios = ?
+      AND obras_idobras = ?
+    LIMIT 1
+  `;
+  db.query(sql, [usuarioId, obraId], (err, resultados) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        mensaje: 'Error al consultar las interacciones'
+      });
+    }
+    const interaccion = resultados[0] || {
+      vista: 0,
+      like: 0,
+      favorita: 0
+    };
+    res.json(interaccion);
+  });
+});
+
+// modificar las interacciones
+router.post('/toggle', (req, res) => {
+  const { usuarioId, obraId, campo } = req.body;
+
+  const usuario = Number(usuarioId);
+  const obra = Number(obraId);
+  const camposPermitidos = ['vista', 'like', 'favorita'];
+
+  if (
+    !Number.isInteger(usuario) || usuario <= 0 ||
+    !Number.isInteger(obra) || obra <= 0 ||
+    !camposPermitidos.includes(campo)
+  ) {
+    return res.status(400).json({
+      mensaje: 'Datos inválidos'
+    });
+  }
+
+  const sqlBuscar = `
+    SELECT idinteracciones_obras, vista, \`like\`, favorita
+    FROM interacciones_obras
+    WHERE usuarios_idusuarios = ?
+      AND obras_idobras = ?
+    LIMIT 1
+  `;
+  db.query(sqlBuscar, [usuario, obra], (err, resultados) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        mensaje: 'Error al consultar la interacción'
+      });
+    }
+
+    if (resultados.length === 0) {
+      const valores = {
+        vista: 0,
+        like: 0,
+        favorita: 0
+      };
+
+      valores[campo] = 1;
+      const sqlInsertar = `
+        INSERT INTO interacciones_obras
+          (obras_idobras, usuarios_idusuarios, vista, \`like\`, favorita)
+        VALUES (?, ?, ?, ?, ?)
+      `;
+      db.query(
+        sqlInsertar,
+        [
+          obra,
+          usuario,
+          valores.vista,
+          valores.like,
+          valores.favorita
+        ],
+        (err) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).json({
+              mensaje: 'Error al guardar la interacción'
+            });
+          }
+          res.json({
+            vista: valores.vista,
+            like: valores.like,
+            favorita: valores.favorita
+          });
+        }
+      );
+      return;
+    }
+
+    const actual = resultados[0];
+    const nuevoValor = Number(actual[campo]) === 1 ? 0 : 1;
+    const sqlActualizar = `
+      UPDATE interacciones_obras
+      SET \`${campo}\` = ?
+      WHERE idinteracciones_obras = ?
+    `;
+    db.query(
+      sqlActualizar,
+      [nuevoValor, actual.idinteracciones_obras],
+      (err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({
+            mensaje: 'Error al actualizar la interacción'
+          });
+        }
+        res.json({
+          vista: campo === 'vista' ? nuevoValor : Number(actual.vista),
+          like: campo === 'like' ? nuevoValor : Number(actual.like),
+          favorita: campo === 'favorita' ? nuevoValor : Number(actual.favorita)
+        });
+      }
+    );
+  });
+});
+
 module.exports=router;

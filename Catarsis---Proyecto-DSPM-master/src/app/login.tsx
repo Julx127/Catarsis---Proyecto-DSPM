@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { startSession } from '@/constants/session';
 import { usuarios } from '@/interfaces/interfaces';
+import { API_URL } from '@/constants/config';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState('');
@@ -18,7 +19,7 @@ export default function LoginScreen() {
       return;
     }
 
-    fetch('http://10.0.4.51:5000/usuarios/login', {
+    fetch(`${API_URL}/usuarios/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

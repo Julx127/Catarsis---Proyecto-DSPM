@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 import { getCurrentUser, isAdmin } from '@/constants/session';
 import { closeSession } from '@/constants/session';
+
 async function handleLogout() {
   await closeSession();
   router.replace('/');
