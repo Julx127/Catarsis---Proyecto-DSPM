@@ -1,7 +1,7 @@
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { useMemo, useState, useEffect } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from '@/components/app-theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { obras } from '@/interfaces/interfaces';
@@ -91,14 +91,14 @@ const styles = StyleSheet.create({
   logo: { width: 72, height: 72, marginTop: 18 },
   headerCopy: { flex: 1, paddingTop: 18 },
   kicker: { color: '#e00000', fontFamily: 'serif', fontSize: 12, fontWeight: '700', letterSpacing: 1.4 },
-  title: { color: '#ffffff', fontFamily: 'serif', fontSize: 32, fontWeight: '700' },
-  subtitle: { color: '#c9c9c9', fontFamily: 'serif', fontSize: 13, lineHeight: 18, marginTop: 2 },
+  title: { color: '#ffffff', fontFamily: 'RocaOne', fontSize: 32, fontWeight: '700' },
+  subtitle: { color: '#c9c9c9', fontFamily: 'RocaTwo', fontSize: 13, lineHeight: 18, marginTop: 2 },
   searchInput: { height: 46, borderRadius: 23, backgroundColor: '#3c3c3c', borderWidth: 1, borderColor: '#696969', color: '#ffffff', fontFamily: 'serif', fontSize: 14, paddingHorizontal: 20 },
-  sectionTitle: { color: '#ffffff', fontFamily: 'serif', fontSize: 22, fontWeight: '700', marginTop: 26, marginBottom: 14 },
+  sectionTitle: { color: '#ffffff', fontFamily: 'RocaTwo', fontSize: 22, fontWeight: '700', marginTop: 26, marginBottom: 14 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: 20 },
   card: { width: '47%', paddingBottom: 10 },
   poster: { width: '100%', aspectRatio: 1 },
-  cardTitle: { color: '#ffffff', fontFamily: 'serif', fontSize: 14, fontWeight: '700', lineHeight: 18, paddingHorizontal: 10, paddingTop: 3 },
+  cardTitle: { color: '#ffffff', fontFamily: 'RocaTwo', fontSize: 14, fontWeight: '700', lineHeight: 18, paddingHorizontal: 10, paddingTop: 3 },
   empty: { color: '#c9c9c9', fontFamily: 'serif', fontSize: 15, textAlign: 'center', paddingVertical: 40 },
   pressed: { opacity: 0.72 },
 });

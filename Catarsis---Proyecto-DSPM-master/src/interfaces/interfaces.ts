@@ -35,6 +35,8 @@ export interface posteos{
   usuarios_idusuarios: number;
   contenido: string;
   fecha_creacion: Date;
+  username?: string;
+  likes?: number;
 }
 
 export interface posteos_etiquetas{
