@@ -1,7 +1,7 @@
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, View } from '@/components/app-theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { startSession } from '@/constants/session';
@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
   backButton: { position: 'absolute', top: 18, left: 28, paddingVertical: 8, paddingHorizontal: 4 },
   backText: { color: '#d8d8d8', fontFamily: 'serif', fontSize: 11, fontWeight: '700' },
   logo: { width: 88, height: 88 },
-  title: { color: '#ffffff', fontFamily: 'serif', fontSize: 30, fontWeight: '700', marginTop: 10 },
-  subtitle: { color: '#d5d5d5', fontFamily: 'serif', fontSize: 14, marginTop: 4 },
+  title: { color: '#ffffff', fontFamily: 'RocaOne', fontSize: 30, fontWeight: '700', marginTop: 10 },
+  subtitle: { color: '#d5d5d5', fontFamily: 'RocaTwo', fontSize: 14, marginTop: 4 },
   form: { width: '100%', maxWidth: 320, gap: 12, marginTop: 30 },
   input: { height: 44, borderRadius: 22, backgroundColor: '#8b8b8b', color: '#ffffff', paddingHorizontal: 20, fontFamily: 'serif', fontSize: 13 },
   confirmButton: { height: 44, alignItems: 'center', justifyContent: 'center', borderRadius: 22, backgroundColor: '#c40000', marginTop: 8 },

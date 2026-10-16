@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from '@/components/app-theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const likedWorks = [
@@ -36,12 +36,12 @@ const styles = StyleSheet.create({
   backButton: { paddingVertical: 8, marginBottom: 26 },
   backText: { color: '#d8d8d8', fontFamily: 'serif', fontSize: 11, fontWeight: '700' },
   kicker: { color: '#e00000', fontFamily: 'serif', fontSize: 12, fontWeight: '700', letterSpacing: 1.4 },
-  title: { color: '#ffffff', fontFamily: 'serif', fontSize: 34, fontWeight: '700', marginTop: 3 },
-  subtitle: { color: '#c9c9c9', fontFamily: 'serif', fontSize: 14, lineHeight: 20, marginTop: 4, marginBottom: 28 },
+  title: { color: '#ffffff', fontFamily: 'RocaOne', fontSize: 34, fontWeight: '700', marginTop: 3 },
+  subtitle: { color: '#c9c9c9', fontFamily: 'RocaTwo', fontSize: 14, lineHeight: 20, marginTop: 4, marginBottom: 28 },
   row: { flexDirection: 'row', alignItems: 'center', gap: 16, marginBottom: 24 },
   poster: { width: 106, height: 106 },
   copy: { flex: 1 },
-  workTitle: { color: '#ffffff', fontFamily: 'serif', fontSize: 17, fontWeight: '700' },
+  workTitle: { color: '#ffffff', fontFamily: 'RocaTwo', fontSize: 17, fontWeight: '700' },
   like: { color: '#e00000', fontFamily: 'serif', fontSize: 13, marginTop: 8 },
   pressed: { opacity: 0.72 },
 });

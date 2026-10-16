@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from '@/components/app-theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useEffect } from 'react';
 

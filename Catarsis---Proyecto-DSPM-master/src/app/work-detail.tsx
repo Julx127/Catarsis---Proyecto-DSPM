@@ -3,7 +3,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View
-} from 'react-native';
+} from '@/components/app-theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { API_URL } from '@/constants/config';
@@ -374,7 +374,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#ffffff',
-    fontFamily: 'serif',
+    fontFamily: 'RocaOne',
     fontSize: 32,
     fontWeight: '700',
     textAlign: 'center',
@@ -382,7 +382,7 @@ const styles = StyleSheet.create({
   },
   author: {
     color: '#d2d2d2',
-    fontFamily: 'serif',
+    fontFamily: 'RocaTwo',
     fontSize: 16,
     textAlign: 'center',
     marginTop: 5

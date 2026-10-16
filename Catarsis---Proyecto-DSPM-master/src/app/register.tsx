@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View} from '@/components/app-theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
 
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
 
   title: {
     color: '#ffffff',
-    fontFamily: 'serif',
+    fontFamily: 'RocaOne',
     fontSize: 30,
     fontWeight: '700',
     marginTop: 10
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
 
   subtitle: {
     color: '#d5d5d5',
-    fontFamily: 'serif',
+    fontFamily: 'RocaTwo',
     fontSize: 14,
     marginTop: 4
   },
