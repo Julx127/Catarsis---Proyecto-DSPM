@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from '@/components/app-theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const activeWorks = ['Chicago', 'Hamilton', 'Maybe Happy Ending', 'Six', 'The Book of Mormon', "The Guy Who Didn't Like Musicals"];
@@ -52,12 +52,12 @@ const styles = StyleSheet.create({
   content: { width: '100%', maxWidth: 520, alignSelf: 'center', padding: 22, paddingBottom: 42 },
   backButton: { paddingVertical: 8, marginBottom: 18 },
   backText: { color: '#d8d8d8', fontFamily: 'serif', fontSize: 11, fontWeight: '700' },
-  title: { color: '#ffffff', fontFamily: 'serif', fontSize: 30, fontWeight: '700', marginBottom: 22 },
+  title: { color: '#ffffff', fontFamily: 'RocaOne', fontSize: 30, fontWeight: '700', marginBottom: 22 },
   viewWorksButton: { alignSelf: 'flex-start', borderWidth: 1, borderColor: '#8f0000', borderRadius: 18, paddingHorizontal: 16, paddingVertical: 9, marginTop: -10, marginBottom: 18 },
   viewWorksText: { color: '#ffffff', fontFamily: 'serif', fontSize: 10, fontWeight: '700' },
   input: { height: 45, borderRadius: 6, backgroundColor: '#3c3c3c', borderWidth: 1, borderColor: '#696969', color: '#ffffff', fontFamily: 'serif', fontSize: 14, paddingHorizontal: 16, marginBottom: 12 },
   descriptionInput: { height: 92, paddingTop: 13, textAlignVertical: 'top' },
-  sectionTitle: { color: '#ffffff', fontFamily: 'serif', fontSize: 20, fontWeight: '700', marginTop: 6, marginBottom: 12 },
+  sectionTitle: { color: '#ffffff', fontFamily: 'RocaTwo', fontSize: 20, fontWeight: '700', marginTop: 6, marginBottom: 12 },
   addProduction: { alignSelf: 'flex-start', paddingVertical: 8, marginBottom: 14 },
   addProductionText: { color: '#e00000', fontFamily: 'serif', fontSize: 11, fontWeight: '700' },
   attachBox: { height: 105, alignItems: 'center', justifyContent: 'center', borderRadius: 6, borderWidth: 1, borderColor: '#696969', backgroundColor: '#3c3c3c', marginTop: 4 },

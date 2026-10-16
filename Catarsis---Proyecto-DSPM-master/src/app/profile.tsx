@@ -1,6 +1,13 @@
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  ThemeToggle,
+  View
+} from '@/components/app-theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useEffect, useState } from 'react';
 
@@ -54,6 +61,14 @@ export default function ProfileScreen() {
               </Pressable>
             ))}
           </View>
+          <Text style={styles.sectionTitle}>Personalizar</Text>
+          <View style={styles.customizeSection}>
+            <View style={styles.customizeCopy}>
+              <Text style={styles.sectionLabel}>Tema de la aplicación</Text>
+              <Text style={styles.sectionDescription}>Elegí entre el modo oscuro y el modo claro.</Text>
+            </View>
+            <ThemeToggle inline />
+          </View>
           <Pressable onPress={() => router.push('/works')} style={styles.worksButton}><Text style={styles.worksButtonText}>EXPLORAR OBRAS</Text></Pressable>
           {adminUser && <Pressable onPress={() => router.push('/admin')} style={styles.adminButton}><Text style={styles.adminButtonText}>PANEL DE ADMINISTRACION</Text></Pressable>}
         </ScrollView>
@@ -72,13 +87,15 @@ const styles = StyleSheet.create({
   avatar: { width: 90, height: 90 },
   headerCopy: { flex: 1 },
   kicker: { color: '#e00000', fontFamily: 'serif', fontSize: 12, fontWeight: '700', letterSpacing: 1.4 },
-  title: { color: '#ffffff', fontFamily: 'serif', fontSize: 36, fontWeight: '700', marginTop: 2 },
+  title: { color: '#ffffff', fontFamily: 'RocaOne', fontSize: 36, fontWeight: '700', marginTop: 2 },
   nickname: { color: '#c9c9c9', fontFamily: 'serif', fontSize: 15, marginTop: 3 },
   bio: { color: '#c9c9c9', fontFamily: 'serif', fontSize: 14, lineHeight: 20, marginTop: 22 },
-  sectionTitle: { color: '#ffffff', fontFamily: 'serif', fontSize: 21, fontWeight: '700', marginTop: 32, marginBottom: 12 },
+  sectionTitle: { color: '#ffffff', fontFamily: 'RocaTwo', fontSize: 21, fontWeight: '700', marginTop: 32, marginBottom: 12 },
   sections: { borderTopWidth: 1, borderTopColor: '#555555' },
   section: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderBottomWidth: 1, borderBottomColor: '#555555', paddingVertical: 17 },
-  sectionLabel: { color: '#ffffff', fontFamily: 'serif', fontSize: 15, fontWeight: '700' },
+  customizeSection: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#555555', paddingVertical: 16 },
+  customizeCopy: { flex: 1 },
+  sectionLabel: { color: '#ffffff', fontFamily: 'RocaTwo', fontSize: 15, fontWeight: '700' },
   sectionDescription: { color: '#aaa', fontFamily: 'serif', fontSize: 13, marginTop: 4 },
   arrow: { color: '#e00000', fontSize: 30, fontWeight: '300' },
   worksButton: { alignSelf: 'center', borderRadius: 20, backgroundColor: '#c40000', paddingHorizontal: 22, paddingVertical: 12, marginTop: 28 },

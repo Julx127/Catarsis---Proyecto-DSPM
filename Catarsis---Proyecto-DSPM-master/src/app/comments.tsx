@@ -9,7 +9,7 @@ import {
   Text,
   TextInput,
   View
-} from 'react-native';
+} from '@/components/app-theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { API_URL } from '@/constants/config';
@@ -371,14 +371,14 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#ffffff',
-    fontFamily: 'serif',
+    fontFamily: 'RocaOne',
     fontSize: 32,
     fontWeight: '700',
     marginTop: 3
   },
   subtitle: {
     color: '#c9c9c9',
-    fontFamily: 'serif',
+    fontFamily: 'RocaTwo',
     fontSize: 14,
     lineHeight: 20,
     marginTop: 4,
@@ -455,7 +455,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     color: '#ffffff',
-    fontFamily: 'serif',
+    fontFamily: 'RocaTwo',
     fontSize: 20,
     fontWeight: '700',
     marginTop: 32,
