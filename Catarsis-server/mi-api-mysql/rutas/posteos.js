@@ -3,6 +3,7 @@ const router=express.Router();
 const db=require('../db'); 
 
 router.get('/', (req, res) => {
+  // obtener posteos y todos sus likes de interacciones_posteos
   const sql = `
     SELECT
       p.idposteos,
@@ -43,7 +44,8 @@ router.post('/', (req, res) => {
   }
 
   const hashtags = [...new Set(
-    Array.from(contenido.matchAll(/#([\p{L}\p{N}_]+)/gu), (match) => match[1].toLowerCase())
+    Array.from(contenido.matchAll(/#([\p{L}\p{N}_]+)/gu // sentencia que busca #
+    ), (match) => match[1].toLowerCase())
   )];
 
   db.getConnection((connectionError, connection) => {
@@ -51,7 +53,6 @@ router.post('/', (req, res) => {
       console.error(connectionError);
       return res.status(500).json({ mensaje: 'No se pudo conectar con la base de datos' });
     }
-
     connection.beginTransaction((transactionError) => {
       if (transactionError) {
         console.error(transactionError);
@@ -59,6 +60,7 @@ router.post('/', (req, res) => {
         return res.status(500).json({ mensaje: 'No se pudo iniciar la publicación' });
       }
 
+      // insertar nuevo psoteo
       connection.query(
         'INSERT INTO posteos (usuarios_idusuarios, contenido, fecha_creacion) VALUES (?, ?, CURRENT_TIMESTAMP)',
         [usuarioId, contenido],
@@ -86,9 +88,10 @@ router.post('/', (req, res) => {
                 res.status(201).json({ idposteos: postId, mensaje: 'Opinión publicada correctamente' });
               });
             }
-
+            
             const nombre = hashtags[index];
             connection.query(
+              // buscar etiquetas existentes
               'SELECT idetiquetas FROM etiquetas WHERE LOWER(nombre) = ? LIMIT 1',
               [nombre.toLowerCase()],
               (findError, rows) => {
@@ -97,6 +100,7 @@ router.post('/', (req, res) => {
                   return vincularEtiqueta(index, rows[0].idetiquetas);
                 }
 
+                // si no existe, crearla
                 connection.query(
                   'INSERT INTO etiquetas (nombre) VALUES (?)',
                   [nombre],
@@ -109,6 +113,7 @@ router.post('/', (req, res) => {
             );
           };
 
+          // insertar en posteos_etiquetas la relacion
           const vincularEtiqueta = (index, etiquetaId) => {
             connection.query(
               'INSERT INTO posteos_etiquetas (posteos_idposteos, etiquetas_idetiquetas) VALUES (?, ?)',
@@ -135,10 +140,12 @@ router.post('/', (req, res) => {
   });
 });
 
+// eliminar posteo por id
 router.delete('/:id', (req, res) => {
   const posteoId = Number(req.params.id);
   const usuarioId = Number(req.body.usuarioId);
 
+  // error si las ids son invalidas
   if (
     !Number.isInteger(posteoId) || posteoId <= 0 ||
     !Number.isInteger(usuarioId) || usuarioId <= 0
@@ -151,7 +158,6 @@ router.delete('/:id', (req, res) => {
       console.error(connectionError);
       return res.status(500).json({ mensaje: 'No se pudo conectar con la base de datos' });
     }
-
     connection.beginTransaction((transactionError) => {
       if (transactionError) {
         console.error(transactionError);
@@ -159,6 +165,7 @@ router.delete('/:id', (req, res) => {
         return res.status(500).json({ mensaje: 'No se pudo iniciar el borrado' });
       }
 
+      // corroborar que el usuario sea dueño del posteo
       connection.query(
         'SELECT usuarios_idusuarios FROM posteos WHERE idposteos = ? LIMIT 1',
         [posteoId],
@@ -171,18 +178,21 @@ router.delete('/:id', (req, res) => {
             return rollback(null, 403, 'Solo podés borrar tus propias publicaciones');
           }
 
+          // eliminar interacciones con ese posteo
           connection.query(
             'DELETE FROM interacciones_posteos WHERE posteos_idposteos = ?',
             [posteoId],
             (interaccionesError) => {
               if (interaccionesError) return rollback(interaccionesError);
 
+              //eliminar relacion posteos_etiquetas con ese posteo
               connection.query(
                 'DELETE FROM posteos_etiquetas WHERE posteos_idposteos = ?',
                 [posteoId],
                 (etiquetasError) => {
                   if (etiquetasError) return rollback(etiquetasError);
 
+                  // eliminar posteo
                   connection.query(
                     'DELETE FROM posteos WHERE idposteos = ? AND usuarios_idusuarios = ?',
                     [posteoId, usuarioId],

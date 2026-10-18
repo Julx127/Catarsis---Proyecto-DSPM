@@ -20,9 +20,9 @@ async function handleLogout() {
 }
 
 const profileSections = [
-  { label: 'OBRAS VISTAS', description: 'Funciones que ya disfrutaste', route: '/watched' as const },
-  { label: 'FAVORITOS', description: 'Tus obras guardadas', route: '/favorites' as const },
-  { label: 'LIKES', description: 'Tus recomendaciones', route: '/likes' as const },
+  { label: 'OBRAS VISTAS', description: 'Obras que ya disfrutaste', route: '/watched' as const },
+  { label: 'FAVORITOS', description: 'Obras que te encantaron', route: '/favorites' as const },
+  { label: 'LIKES', description: 'Obras que te gustaron', route: '/likes' as const },
 ];
 
 export default function ProfileScreen() {

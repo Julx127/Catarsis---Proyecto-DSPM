@@ -15,6 +15,7 @@ router.get('/', (req, res) => {
 // Registrar usuario
 router.post('/', (req, res) => {
     const { username, email, password } = req.body;
+    // error si los campos estan incompletos
     if (!username || !email || !password) {
         return res.status(400).json({
             mensaje: 'Todos los campos son obligatorios'
@@ -44,7 +45,6 @@ router.post('/', (req, res) => {
             INSERT INTO usuarios (username, email, password, admin)
             VALUES (?, ?, ?, 0)
         `;
-
         db.query(
             sqlInsertar,
             [username, email, password],
@@ -55,7 +55,6 @@ router.post('/', (req, res) => {
                         error: err
                     });
                 }
-
                 res.status(201).json({
                     mensaje: 'Usuario registrado correctamente',
                     idusuarios: result.insertId
@@ -68,11 +67,14 @@ router.post('/', (req, res) => {
 // Iniciar sesion
 router.post('/login', (req, res) => {
     const { username, password } = req.body;
+    // error si los campos estan incompletos
     if (!username || !password) {
         return res.status(400).json({
             mensaje: 'Usuario y contraseña son obligatorios'
         });
     }
+    
+    // buscar usuario
     const sql = `
         SELECT idusuarios, username, email, password, admin
         FROM usuarios

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
+// obtener reseña con el nombre de usuario y la fecha en el formato yyyy-mm-dd
 router.get('/', (req, res) => {
   const sql = `
     SELECT
@@ -32,11 +33,14 @@ router.get('/', (req, res) => {
 router.get('/obra/:obraId', (req, res) => {
   const obraId = Number(req.params.obraId);
 
+  // error si el id es invalido
   if (!Number.isInteger(obraId) || obraId <= 0) {
     return res.status(400).json({
       mensaje: 'ID de obra inválido'
     });
   }
+
+  // obtener reseña con nombre de usuario
   const sql = `
     SELECT
       r.idresenias,
@@ -71,6 +75,7 @@ router.post('/', (req, res) => {
   const usuario = Number(usuarioId);
   const puntuacion = Number(estrellas);
 
+  // error sk los datos no estan completos
   if (
     !Number.isInteger(obra) || obra <= 0 ||
     !Number.isInteger(usuario) || usuario <= 0 ||
@@ -84,6 +89,7 @@ router.post('/', (req, res) => {
     });
   }
 
+  // insertar reseña nueva
   const sql = `
     INSERT INTO resenias
       (obras_idobras, usuarios_idusuarios, estrellas,
@@ -101,6 +107,7 @@ router.post('/', (req, res) => {
         });
       }
 
+      // mostrar nueva reseña
       const sqlNueva = `
         SELECT
           r.idresenias,
@@ -119,7 +126,7 @@ router.post('/', (req, res) => {
         if (err) {
           console.error(err);
           return res.status(500).json({
-            mensaje: 'La reseña se guardó, pero no se pudo mostrar'
+            mensaje: 'No se pudo mostrar la nueva reseña'
           });
         }
 
