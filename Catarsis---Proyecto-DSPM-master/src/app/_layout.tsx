@@ -8,6 +8,7 @@ import { AppThemeProvider, useAppTheme } from '@/components/app-theme';
 
 SplashScreen.preventAutoHideAsync();
 
+// La funcion Tab Layout carga las fuentes de la aplicacion y monta el tema y la navegacion cuando estan listas.
 export default function TabLayout() {
   const [fontsLoaded, fontError] = useFonts({
     RocaOne: require('../../assets/fonts/RocaOne-Rg.ttf'),
@@ -25,6 +26,7 @@ export default function TabLayout() {
   );
 }
 
+// Aplica el tema de navegacion actual y muestra las pantallas, el splash y el pie de Catarsis.
 function ThemedNavigation() {
   const { mode } = useAppTheme();
 
